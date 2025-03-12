@@ -5,7 +5,14 @@ using Sales_Microservice.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy => policy
+            .WithOrigins("http://localhost:5173") // React app URL
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 // Add Entity Framework Core with SQL Server
 builder.Services.AddDbContext<TransactionDbContext>(options =>
@@ -34,6 +41,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
+app.UseCors("AllowReactApp"); // Apply CORS policy
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

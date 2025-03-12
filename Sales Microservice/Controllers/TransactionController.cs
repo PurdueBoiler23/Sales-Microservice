@@ -29,5 +29,20 @@ namespace Sales_Microservice.Controllers
             }
         }
 
+        [HttpGet("GetTransactionReports")]
+        public async Task<IActionResult> GetSalesReports()
+        {
+            try
+            {
+                var report = await _transactionService.GetAllReportsAsync();
+                return Ok(report);
+            }
+            catch (Exception ex)
+            {
+                // Log exception (optional)
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
+
+        }
     }
 }
