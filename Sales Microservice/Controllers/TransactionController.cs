@@ -44,5 +44,19 @@ namespace Sales_Microservice.Controllers
             }
 
         }
+
+        [HttpGet("GetTransactionById")]
+        public async Task<IActionResult> GetTransactionById(int transactionId)
+        {
+            try
+            {
+                var transaction = await _transactionService.GetTransactionAsync(transactionId);
+                return Ok(transaction);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
+        }
     }
 }

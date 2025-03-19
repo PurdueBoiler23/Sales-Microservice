@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Sales_Microservice.Data;
 using Sales_Microservice.Services;
 using Sales_Microservice.Services.Interfaces;
 
@@ -17,9 +18,11 @@ builder.Services.AddCors(options =>
 // Add Entity Framework Core with SQL Server
 builder.Services.AddDbContext<TransactionDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddDbContext<InventoryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 // Add controllers
 builder.Services.AddControllers();
 

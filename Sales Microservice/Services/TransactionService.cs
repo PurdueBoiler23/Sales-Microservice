@@ -69,5 +69,10 @@ namespace Sales_Microservice.Services
                 .ThenBy(r => r.PeriodType == "Month" ? DateTime.ParseExact(r.PeriodName, "MMMM yyyy", null).Month : 0) // Sort January - December
                 .ToList();
         }
+
+        public async Task<Transaction> GetTransactionAsync(int transactionId)
+        {
+            return await _context.Transactions.FindAsync(transactionId);
+        }
     }
 }

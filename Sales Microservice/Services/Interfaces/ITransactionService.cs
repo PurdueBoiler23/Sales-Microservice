@@ -6,5 +6,6 @@ namespace Sales_Microservice.Services.Interfaces
     {
         Task<List<Transaction>> GetAllTransactionsAsync();
         Task<List<Report>> GetAllReportsAsync();
+        Task<Transaction> GetTransactionAsync(int transactionId);
     }
 }
